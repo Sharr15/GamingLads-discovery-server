@@ -24,5 +24,5 @@ jobs:
       - task: PushToHeroku@0
         inputs:
           ApiKey: 'd0e26bf9-46d6-49bb-a3a0-aaab5063d904'
-          AppName: 'gaminglads-discoveryservice'
+          AppName: 'gaminglads-discoveryserver'
           PushRoot: '/'
