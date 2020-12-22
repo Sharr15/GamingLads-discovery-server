@@ -1,22 +1,28 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+name: $(Date:yyyyMMdd)$(Rev:.r)
 
-trigger:
-- main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+variables:
+  ENV: test
+jobs:
+  - job: "Compile"
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - task: Maven@3
+        displayName: Compiling Image
+        inputs:
+          mavenPomFile: 'pom.xml'
+          mavenOptions: '-Xmx3072m'
+          goals: 'compile'
+      - task: Docker@2
+        displayName: Building Docker Image
+        inputs:
+          command: buildAndPush
+          Dockerfile: Dockerfile
+          tags: |
+            $(Build.BuildId)
+            latest
+      - task: PushToHeroku@0
+        inputs:
+          ApiKey: 'd0e26bf9-46d6-49bb-a3a0-aaab5063d904'
+          AppName: 'gaminglads-discoveryservice'
+          PushRoot: '/'
