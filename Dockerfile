@@ -1,4 +1,4 @@
 FROM openjdk:11
 ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} user-information-service.jar
-ENTRYPOINT ["java", "-jar", "/user-information-service.jar"]
+COPY ${JAR_FILE} discovery-server.jar
+ENTRYPOINT ["java", "-jar", "/discovery-server.jar"]
