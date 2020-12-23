@@ -19,7 +19,7 @@ jobs:
           command: buildAndPush
           Dockerfile: Dockerfile
           tags: |
-            $(Build.BuildId)
+            $(Build.SourcesDirectory)
             latest
       - task: PushToHeroku@0
         inputs:
