@@ -18,7 +18,7 @@ jobs:
         inputs:
           command: 'buildAndPush'
           Dockerfile: 'Dockerfile'
-          buildContext: 'ApiRootName'
+          buildContext: 'GamingLads'
           tags: |
             $(Build.SourcesDirectory)
             latest
