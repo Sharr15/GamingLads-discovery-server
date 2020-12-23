@@ -18,9 +18,8 @@ jobs:
         inputs:
           command: 'buildAndPush'
           Dockerfile: 'Dockerfile'
-          buildContext: 'GamingLads'
           tags: |
-            $(Build.SourcesDirectory)
+            $(Build.BuildId)
             latest
       - task: PushToHeroku@0
         inputs:
